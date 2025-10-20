@@ -3,7 +3,29 @@ const members = [];
 document.getElementById("addMemberBtn").addEventListener("click", () => {
   const name = document.getElementById("memberName").value.trim();
 
-  if (!name) return alert("Enter a valid name!");
+  const minLength = 2;
+
+    if (!name) {
+    document.getElementById("warn").textContent = "Enter a valid member name!";
+    setTimeout(() => (document.getElementById("warn").textContent = ""), 3000);
+    return;
+  }
+
+  if (!/^[a-zA-Z\s']+$/.test(name)) {
+    document.getElementById("warn").textContent =
+      "Name must contain only letters and spaces!";
+    setTimeout(() => (document.getElementById("warn").textContent = ""), 3000);
+    return;
+  }
+
+  if (name.length < minLength) {
+    document.getElementById("warn").textContent =
+      "Minimum characters for a name : 2";
+    setTimeout(() => (document.getElementById("warn").textContent = ""), 3000);
+    return;
+  }
+
+
 
   members.push({ name, tasks: [] });
   document.getElementById("memberName").value = "";
@@ -33,7 +55,7 @@ function render() {
     deleteMemberBtn.textContent = "Delete this member";
 
     deleteMemberBtn.addEventListener("click", () => {
-      let confirmation = confirm("Are you sure?");
+      let confirmation = confirm(`This action will delete ${member.name} from the list, proceed?`);
       if (confirmation) {
         members.splice(mIndex, 1);
         render();
@@ -42,7 +64,15 @@ function render() {
 
     addTaskBtn.addEventListener("click", () => {
       const text = taskInput.value.trim();
-      if (!text) return alert("Enter a valid name!");
+      if (!text) {
+        document.getElementById("warn").textContent =
+          "Enter a valid task name!";
+        setTimeout(
+          () => (document.getElementById("warn").textContent = ""),
+          3000
+        );
+        return;
+      }
       member.tasks.push({ text, done: false });
       taskInput.value = "";
       render();
@@ -77,7 +107,7 @@ function render() {
       const deleteTaskBtn = document.createElement("button");
       deleteTaskBtn.textContent = "Delete";
       deleteTaskBtn.addEventListener("click", () => {
-        let confirmation = confirm("You sure want to delete?");
+      let confirmation = confirm(`This action will delete the task from ${member.name}'s task list, proceed?`);
         if (confirmation) {
           member.tasks.splice(tIndex, 1);
           render();
@@ -96,6 +126,9 @@ function render() {
 }
 
 document.getElementById("clearAllBtn").addEventListener("click", () => {
-  members.length = 0;
-  render();
+  let confirmation = confirm("This action will delete all members, proceed?");
+  if (confirmation) {
+    members.length = 0;
+    render();
+  }
 });
