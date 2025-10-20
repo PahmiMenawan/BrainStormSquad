@@ -1,5 +1,19 @@
 const members = [];
 
+const saved = localStorage.getItem("membersData");
+// const saved = sessionStorage.getItem("membersData");
+if (saved) {
+  try {
+    const parsed = JSON.parse(saved);
+    if (Array.isArray(parsed)) {
+      members.push(...parsed);
+    }
+  } catch (e) {
+    console.error("Failed to parse saved data:", e);
+  }
+}
+render();
+
 document.getElementById("addMemberBtn").addEventListener("click", () => {
   const name = document.getElementById("memberName").value.trim();
 
@@ -12,6 +26,8 @@ document.getElementById("addMemberBtn").addEventListener("click", () => {
 
 function render() {
   // console.log(members)
+  // sessionStorage.setItem("membersData", JSON.stringify(members));
+  localStorage.setItem("membersData", JSON.stringify(members));
   const container = document.getElementById("members");
   container.innerHTML = "";
   members.forEach((member, mIndex) => {
@@ -63,7 +79,6 @@ function render() {
 
       if (task.done) {
         label.classList.add("done");
-        li.classList.add("list-done")
       }
 
       doneBtn.addEventListener("click", () => {
@@ -90,6 +105,8 @@ function render() {
 }
 
 document.getElementById("clearAllBtn").addEventListener("click", () => {
+  localStorage.removeItem("membersData")
+  // sessionStorage.removeItem("membersData")
     members.length = 0;
-    render();
+  render();
 });
