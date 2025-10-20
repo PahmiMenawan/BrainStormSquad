@@ -33,8 +33,11 @@ function render() {
     deleteMemberBtn.textContent = "Delete this member";
 
     deleteMemberBtn.addEventListener("click", () => {
-      members.splice(mIndex, 1);
-      render();
+      let confirmation = confirm("Are you sure?");
+      if (confirmation) {
+        members.splice(mIndex, 1);
+        render();
+      }
     });
 
     addTaskBtn.addEventListener("click", () => {
@@ -63,7 +66,7 @@ function render() {
 
       if (task.done) {
         label.classList.add("done");
-        li.classList.add("list-done")
+        li.classList.add("list-done");
       }
 
       doneBtn.addEventListener("click", () => {
@@ -74,8 +77,11 @@ function render() {
       const deleteTaskBtn = document.createElement("button");
       deleteTaskBtn.textContent = "Delete";
       deleteTaskBtn.addEventListener("click", () => {
-        member.tasks.splice(tIndex, 1);
-        render();
+        let confirmation = confirm("You sure want to delete?");
+        if (confirmation) {
+          member.tasks.splice(tIndex, 1);
+          render();
+        }
       });
 
       li.appendChild(label);
@@ -90,6 +96,6 @@ function render() {
 }
 
 document.getElementById("clearAllBtn").addEventListener("click", () => {
-    members.length = 0;
-    render();
+  members.length = 0;
+  render();
 });
