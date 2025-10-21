@@ -21,7 +21,10 @@ body {
     background-color: var(--black);
 }
 
+
 .navbar {
+    display: flex;
+    justify-content: space-between;
     background-image: linear-gradient(to bottom, rgb(27, 19, 80), rgb(0, 0, 0));
     position: fixed;
     top: 0;
@@ -36,6 +39,21 @@ body {
 .navbar a {
     color: var(--white);
     text-decoration: none;
+}
+
+
+.navbar.light-mode{
+    background-image: linear-gradient(to bottom, rgb(121, 100, 255), rgb(255, 255, 255));
+    color: var(--black);
+}
+
+.navbar button{
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: var(--white);
+    cursor: pointer;
+    font-size: 1rem;
 }
 
 .container {
@@ -206,6 +224,13 @@ li button:last-child {
 
 li button:last-child:hover {
     background-color: #c82333;
+}
+
+#warn{
+    background-color: #c82333;
+    /* padding: .5rem; */
+    color: white;
+    border-radius: 8px;
 }
 
 @media (max-width: 478px) {

@@ -132,3 +132,8 @@ document.getElementById("clearAllBtn").addEventListener("click", () => {
     render();
   }
 });
+
+// document.getElementById("toggle").addEventListener("click", () => {
+//   const navbar = document.getElementById('nav');
+//   navbar.classList.toggle('light-mode')
+// })
